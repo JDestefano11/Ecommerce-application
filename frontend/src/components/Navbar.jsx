@@ -1,13 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Ref to the mobile menu for detecting clicks outside
+  const menuRef = useRef(null);
+
+  // Function to toggle the mobile menu open/closed
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Effect to handle clicking outside the mobile menu to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    // Add event listener when component mounts
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount
 
   return (
     <div className="relative flex items-center justify-between py-5 font-medium">
@@ -66,6 +86,7 @@ const Navbar = () => {
 
       {/* Sliding menu */}
       <div
+        ref={menuRef}
         className={`fixed top-0 right-0 h-full bg-white shadow-lg transition-all duration-300 ease-in-out ${
           isMenuOpen ? "w-64" : "w-0"
         } overflow-hidden z-50`}
