@@ -30,24 +30,36 @@ const Navbar = () => {
   }, []); // Empty dependency array means this effect runs once on mount
 
   return (
-    <div className="relative flex items-center justify-between py-5 font-medium">
+    <div className="relative flex items-center justify-between py-5 font-medium bg-[#FFFFFF] w-full">
       <img src={assets.logo} className="w-36" alt="logo" />
-      <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
-        <NavLink to="/" className="flex flex-col items-center gap-1">
+      <ul className="hidden sm:flex gap-5 text-sm text-[#708090]">
+        <NavLink
+          to="/"
+          className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300"
+        >
           <p>Home</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
-        <NavLink to="/collection" className="flex flex-col items-center gap-1">
+        <NavLink
+          to="/collection"
+          className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300"
+        >
           <p>Collection</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
-        <NavLink to="/about" className="flex flex-col items-center gap-1">
+        <NavLink
+          to="/about"
+          className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300"
+        >
           <p>About</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
-        <NavLink to="/contact" className="flex flex-col items-center gap-1">
+        <NavLink
+          to="/contact"
+          className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300"
+        >
           <p>Contact</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+          <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
       </ul>
       <div className="flex items-center gap-5">
@@ -63,16 +75,16 @@ const Navbar = () => {
             alt="profile"
           />
           <div className="group-hover:block hidden absolute dropdown right-0 mt-2">
-            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
-              <p className="cursor-pointer hover:text-black">My Profile</p>
-              <p className="cursor-pointer hover:text-black">Orders</p>
-              <p className="cursor-pointer hover:text-black">Logout</p>
+            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#FFFDD0] text-[#2F4F4F] rounded">
+              <p className="cursor-pointer hover:text-[#FFC0CB]">My Profile</p>
+              <p className="cursor-pointer hover:text-[#FFC0CB]">Orders</p>
+              <p className="cursor-pointer hover:text-[#FFC0CB]">Logout</p>
             </div>
           </div>
         </div>
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} alt="cart" className="w-5 min-w-5" />
-          <span className="absolute top-[-10px] right-[-10px] w-5 h-5 text-center leading-5 bg-black text-white text-xs rounded-full">
+          <span className="absolute top-[-10px] right-[-10px] w-5 h-5 text-center leading-5 bg-[#FFC0CB] text-[#2F4F4F] text-xs rounded-full">
             5
           </span>
         </Link>
@@ -87,7 +99,7 @@ const Navbar = () => {
       {/* Sliding menu */}
       <div
         ref={menuRef}
-        className={`fixed top-0 right-0 h-full bg-white shadow-lg transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 h-full bg-[#FFFFFF] transition-all duration-300 ease-in-out ${
           isMenuOpen ? "w-64" : "w-0"
         } overflow-hidden z-50`}
       >
@@ -99,17 +111,33 @@ const Navbar = () => {
             onClick={toggleMenu}
           />
         </div>
-        <ul className="flex flex-col items-start p-4 space-y-4 text-gray-700">
-          <NavLink to="/" className="w-full" onClick={toggleMenu}>
+        <ul className="flex flex-col items-start p-4 space-y-4 text-[#708090]">
+          <NavLink
+            to="/"
+            className="w-full hover:text-[#FFC0CB] transition-colors duration-300"
+            onClick={toggleMenu}
+          >
             Home
           </NavLink>
-          <NavLink to="/collection" className="w-full" onClick={toggleMenu}>
+          <NavLink
+            to="/collection"
+            className="w-full hover:text-[#FFC0CB] transition-colors duration-300"
+            onClick={toggleMenu}
+          >
             Collection
           </NavLink>
-          <NavLink to="/about" className="w-full" onClick={toggleMenu}>
+          <NavLink
+            to="/about"
+            className="w-full hover:text-[#FFC0CB] transition-colors duration-300"
+            onClick={toggleMenu}
+          >
             About
           </NavLink>
-          <NavLink to="/contact" className="w-full" onClick={toggleMenu}>
+          <NavLink
+            to="/contact"
+            className="w-full hover:text-[#FFC0CB] transition-colors duration-300"
+            onClick={toggleMenu}
+          >
             Contact
           </NavLink>
         </ul>
