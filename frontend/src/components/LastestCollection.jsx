@@ -25,17 +25,14 @@ const LatestCollection = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-          {latestProducts.map((item, index) => (
-            <div
-              key={item._id}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
+          {latestProducts.map((item) => (
+            <div key={item._id}>
               <ProductItem
                 id={item._id}
                 image={item.image}
                 name={item.name}
                 price={item.price}
+                className="h-96"
               />
             </div>
           ))}
