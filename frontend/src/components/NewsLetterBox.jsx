@@ -1,35 +1,31 @@
 import React from "react";
 
 const NewsLetterBox = () => {
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-  };
-
   return (
-    <div className="text-center">
-      <p className="text-2x1 font-medium text-gray-800">
-        Subscribe now and get 30% off
-      </p>
-      <p className="text-gray-400 mt-3 ">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque tenetur
-        autem ipsum perferendis. Ab accusamus, aut illum, sequi cumque iure
-        quisquam impedit, ipsum delectus ea tenetur sapiente doloremque harum
-        vel.
-      </p>
-      <form onSubmit={onSubmitHandler}>
-        <input
-          type="text"
-          placeholder="Enter your email"
-          className="border-2 border-gray-300 rounded-l-md px-4 py-2 w-64"
-          required
-        />
-        <button
-          className="bg-black text-white text-xs px-10 py-4"
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
+    <div className="bg-[#FFFDD0] py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h2 className="text-3xl font-extrabold text-[#2F4F4F] sm:text-4xl mb-4">
+            Subscribe to Our Newsletter
+          </h2>
+          <p className="text-xl text-[#708090] mb-8">
+            Stay updated with our latest collections and exclusive offers
+          </p>
+          <form className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="px-4 py-3 w-full sm:w-64 border border-[#708090] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]"
+            />
+            <button
+              type="submit"
+              className="px-6 py-3 bg-[#708090] text-white rounded-md hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition duration-300"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

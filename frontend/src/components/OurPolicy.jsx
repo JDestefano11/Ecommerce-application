@@ -3,28 +3,41 @@ import { assets } from "../assets/frontend_assets/assets";
 
 const OurPolicy = () => {
   return (
-    <div className="flex flex-col sm:flex-row justify-around gap-12 sm:gap-2 text-center py-20 text-xs sm: text-sm md: text-base text-gray-700">
-      <div>
-        <img src={assets.exchange_icon} className="w-12 m-auto mb-5" alt="" />
-        <p className="font-semibold">Exchange Policy</p>
-        <p className="text-gray-400">We provide a hassle-free exchanges</p>
-      </div>
-
-      <div>
-        <img src={assets.quality_icon} className="w-12 m-auto mb-5" alt="" />
-        <p className="font-semibold">14 Days Exchange Policy</p>
-        <p className="text-gray-400">We offer a 14-day free return policy</p>
-      </div>
-
-      <div>
-        <img src={assets.support_img} className="w-12 m-auto mb-5" alt="" />
-        <p className="font-semibold">Best Customer Support</p>
-        <p className="text-gray-400">
-          We offer round-the-clock customer support, available 24/7
-        </p>
+    <div className="bg-[#FFFFFF] py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-extrabold text-[#2F4F4F] text-center mb-12">
+          Our Policies
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
+          <PolicyItem
+            icon={assets.exchange_icon}
+            title="Exchange Policy"
+            description="We provide hassle-free exchanges"
+          />
+          <PolicyItem
+            icon={assets.quality_icon}
+            title="14 Days Return Policy"
+            description="We offer a 14-day free return policy"
+          />
+          <PolicyItem
+            icon={assets.support_img}
+            title="24/7 Customer Support"
+            description="Round-the-clock support available"
+          />
+        </div>
       </div>
     </div>
   );
 };
+
+const PolicyItem = ({ icon, title, description }) => (
+  <div className="flex flex-col items-center text-center">
+    <div className="bg-[#FFFDD0] p-4 rounded-full mb-4">
+      <img src={icon} className="w-12 h-12" alt="" />
+    </div>
+    <h3 className="text-lg font-semibold text-[#2F4F4F] mb-2">{title}</h3>
+    <p className="text-[#708090]">{description}</p>
+  </div>
+);
 
 export default OurPolicy;
