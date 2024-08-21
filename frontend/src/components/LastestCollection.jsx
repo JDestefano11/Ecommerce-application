@@ -1,45 +1,57 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import Title from "./Title";
+import { Link } from "react-router-dom";
 import ProductItem from "./ProductItem";
 
-const LastestCollection = () => {
+const LatestCollection = () => {
   const { products } = useContext(ShopContext);
-  const [latestProducts, setLatestproducts] = useState([]);
+  const [latestProducts, setLatestProducts] = useState([]);
 
   // Effect to set the latest products when the component mounts
   useEffect(() => {
-    setLatestproducts(products.slice(0, 10));
-  }, []);
+    setLatestProducts(products.slice(0, 8));
+  }, [products]);
 
   return (
-    <div className="my-10">
-      <div className="text-center py-8 text 3x-1">
-        <Title text1={"Latest"} text2={"Collection"} />
-        <p className="w-3/4 m-auto text-xs sm:text-sm md: text-base text-gray-600">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto quas
-          assumenda commodi mollitia deleniti cupiditate dignissimos provident
-          totam aut qui, accusamus unde eligendi ea nemo libero porro nostrum
-          illum magni.
-        </p>
-      </div>
+    <div className="bg-[#FFFFFF] py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-extrabold text-[#2F4F4F] sm:text-4xl">
+            Latest Collection
+          </h2>
+          <p className="mt-3 max-w-2xl mx-auto text-xl text-[#708090] sm:mt-4">
+            Discover our newest arrivals and trending styles
+          </p>
+        </div>
 
-      {/*Rendering products */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 gap-y">
-        {latestProducts.map((item, index) => {
-          return (
-            <ProductItem
-              key={index}
-              id={item._id}
-              image={item.image}
-              name={item.name}
-              price={item.price}
-            />
-          );
-        })}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+          {latestProducts.map((item, index) => (
+            <div
+              key={item._id}
+              className="animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <ProductItem
+                id={item._id}
+                image={item.image}
+                name={item.name}
+                price={item.price}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            to="/collection"
+            className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#708090] hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition duration-300"
+          >
+            View All Collections
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default LastestCollection;
+export default LatestCollection;
