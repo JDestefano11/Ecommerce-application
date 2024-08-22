@@ -58,52 +58,52 @@ const ReviewCarousel = ({ reviews }) => {
     return <div className="text-center text-gray-500">No reviews available.</div>;
   }
 
-  return (
-    <div className="relative max-w-6xl mx-auto">
-      {/* Container for the review cards with animation handling */}
-      <div className={`flex gap-4 transition-opacity duration-500 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
-        {/* Render 3 review cards at a time */}
-        {[0, 1, 2].map((offset) => {
-          // Calculate the index of the review to display, wrapping around if necessary
-          const reviewIndex = (currentIndex + offset) % reviews.length;
-          const review = reviews[reviewIndex];
-          return (
-            <div key={reviewIndex} className="flex-1 bg-white shadow-lg rounded-lg p-6">
-              {/* Reviewer's profile image */}
-              <img
-                src={review.image}
-                alt={review.name}
-                className="w-16 h-16 rounded-full mx-auto mb-4 border-2 border-gray-200"
-              />
-              {/* Star rating visualization */}
-              <div className="flex justify-center mb-2">
-                {renderStars(review.rating)}
+    return (
+      <div className="relative max-w-6xl mx-auto bg-[#FFFDD0] p-8 rounded-lg shadow-lg">
+        {/* Container for the review cards with animation handling */}
+        <div className={`flex gap-6 transition-opacity duration-500 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
+          {/* Render 3 review cards at a time */}
+          {[0, 1, 2].map((offset) => {
+            // Calculate the index of the review to display, wrapping around if necessary
+            const reviewIndex = (currentIndex + offset) % reviews.length;
+            const review = reviews[reviewIndex];
+            return (
+              <div key={reviewIndex} className="flex-1 bg-white rounded-lg p-6 shadow-md transition-transform duration-300 hover:scale-105">
+                {/* Reviewer's profile image */}
+                <img
+                  src={review.image}
+                  alt={review.name}
+                  className="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-[#FFC0CB]"
+                />
+                {/* Star rating visualization */}
+                <div className="flex justify-center mb-3">
+                  {renderStars(review.rating)}
+                </div>
+                {/* The text content of the review */}
+                <p className="text-center text-[#708090] text-lg italic mb-4 line-clamp-3">{review.text}</p>
+                {/* The name of the reviewer */}
+                <p className="text-center font-semibold text-[#2F4F4F]">{review.name}</p>
               </div>
-              {/* The text content of the review */}
-              <p className="text-center text-lg italic mb-4">{review.text}</p>
-              {/* The name of the reviewer */}
-              <p className="text-center font-semibold">{review.name}</p>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        {/* Navigation buttons for moving through reviews */}
+        <button
+          onClick={prevReviews}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 bg-[#708090] text-white rounded-full p-3 shadow-md hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition-colors duration-200"
+          aria-label="Previous reviews"
+        >
+          <FaChevronLeft className="text-xl" />
+        </button>
+        <button
+          onClick={nextReviews}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-6 bg-[#708090] text-white rounded-full p-3 shadow-md hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition-colors duration-200"
+          aria-label="Next reviews"
+        >
+          <FaChevronRight className="text-xl" />
+        </button>
       </div>
-      {/* Navigation buttons for moving through reviews */}
-      <button
-        onClick={prevReviews}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-200"
-        aria-label="Previous reviews"
-      >
-        <FaChevronLeft className="text-gray-600" />
-      </button>
-      <button
-        onClick={nextReviews}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-200"
-        aria-label="Next reviews"
-      >
-        <FaChevronRight className="text-gray-600" />
-      </button>
-    </div>
-  );
+    );
 };
 
 export default ReviewCarousel;

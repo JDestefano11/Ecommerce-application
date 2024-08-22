@@ -196,44 +196,57 @@ const Product = () => {
           </div>
         </div>
       </div>
-      {/* Customer reviews section */}
-      <div className="mt-20">
-        <h2 className="text-2xl font-semibold mb-4">Customer Reviews ({reviews.length})</h2>
-        <ReviewCarousel reviews={reviews} />
-        {/* Review submission form */}
-        <form onSubmit={handleNewReviewSubmit} className="mt-8">
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={newReview.name}
-            onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-            className="border p-2 mr-2"
-          />
-          <input
-            type="text"
-            placeholder="Your Review"
-            value={newReview.text}
-            onChange={(e) => setNewReview({ ...newReview, text: e.target.value })}
-            className="border p-2 mr-2"
-          />
-          <select
-            value={newReview.rating}
-            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
-            className="border p-2 mr-2"
-          >
-            {[1, 2, 3, 4, 5].map((rating) => (
-              <option key={rating} value={rating}>{rating} Stars</option>
-            ))}
-          </select>
-          <button type="submit" className="bg-black text-white px-4 py-2">Submit Review</button>
-        </form>
+          {/* Customer reviews section */}
+          <div className="mt-16">
+        <h2 className="text-3xl font-bold text-[#2F4F4F] mb-8">Customer Reviews ({reviews.length})</h2>
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="lg:w-2/3">
+            <ReviewCarousel reviews={reviews} />
+          </div>
+          <div className="lg:w-1/3">
+            {/* Review submission form */}
+            <form onSubmit={handleNewReviewSubmit} className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold text-[#2F4F4F] mb-4">Write a Review</h3>
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={newReview.name}
+                onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                className="w-full px-3 py-2 border border-[#708090] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFC0CB] mb-4"
+              />
+              <select
+                value={newReview.rating}
+                onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+                className="w-full px-3 py-2 border border-[#708090] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFC0CB] mb-4"
+              >
+                <option value="">Select Rating</option>
+                {[1, 2, 3, 4, 5].map((rating) => (
+                  <option key={rating} value={rating}>{rating} Stars</option>
+                ))}
+              </select>
+              <textarea
+                placeholder="Your Review"
+                value={newReview.text}
+                onChange={(e) => setNewReview({ ...newReview, text: e.target.value })}
+                className="w-full px-3 py-2 border border-[#708090] rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFC0CB] mb-4"
+                rows="4"
+              ></textarea>
+              <button type="submit" className="w-full bg-[#708090] text-white py-2 rounded-md hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition duration-300">
+                Submit Review
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
-      {/* Related products component */}
-      <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
+ {/* Related products component */}
+ <div className="mt-16">
+        <h2 className="text-3xl font-bold text-[#2F4F4F] mb-8">Related Products</h2>
+        <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
+      </div>
     </div>
-  ) : (
-    <div className="opacity-0"></div>
-  );
+) : (
+  <div className="opacity-0"></div>
+);
 };
 
 export default Product;
