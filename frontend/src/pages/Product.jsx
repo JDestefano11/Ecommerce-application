@@ -244,7 +244,7 @@ const renderStars = (rating) => {
         </div>
         {/* Related products component */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-[#2F4F4F] mb-8">Related Products</h2>
+          <h2 className="text-3xl font-bold text-[#2F4F4F] mb-8 text-center">Related Products</h2>
           <RelatedProducts category={productData.category} subCategory={productData.subCategory}/>
         </div>
       </div>
