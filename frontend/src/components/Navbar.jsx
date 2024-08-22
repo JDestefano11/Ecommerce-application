@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import { Link, NavLink } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { setShowSearch } = useContext(ShopContext);
 
   // Ref to the mobile menu for detecting clicks outside
   const menuRef = useRef(null);
@@ -67,6 +70,7 @@ const Navbar = () => {
           src={assets.search_icon}
           className="w-5 cursor-pointer"
           alt="search"
+          onClick={() => setShowSearch(true)}
         />
         <div className="group relative">
           <img

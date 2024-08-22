@@ -4,7 +4,7 @@ import { assets } from "../assets/frontend_assets/assets";
 import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -36,6 +36,13 @@ const Collection = () => {
   // Function to apply filters based on selected categories and subcategories
   const applyFilter = () => {
     let productsCopy = products.slice(); // Create a copy of all products
+
+    if (showSearch && search) {
+      // If search is active, filter products based on search query
+      productsCopy = productsCopy.filter(item =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
 
     if (category.length > 0) {
       // Filter products based on selected categories
@@ -81,10 +88,11 @@ const Collection = () => {
     sortProduct();
   }, [sortType]);
 
-  // Apply filters whenever category or subcategory selections change
+  // Apply filters whenever category,subCategory, search, showSearch selections change
   useEffect(() => {
+    console.log("showSearch changed:", showSearch);
     applyFilter();
-  }, [category, subCategory]);
+  }, [category, subCategory, search, showSearch]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
