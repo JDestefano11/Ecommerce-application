@@ -5,7 +5,7 @@ import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { setShowSearch } = useContext(ShopContext);
+  const { setShowSearch, getCartCount } = useContext(ShopContext);
   const location = useLocation();
 
   // Ref to the mobile menu for detecting clicks outside
@@ -96,7 +96,7 @@ const Navbar = () => {
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} alt="cart" className="w-5 min-w-5" />
           <span className="absolute top-[-10px] right-[-10px] w-5 h-5 text-center leading-5 bg-[#FFC0CB] text-[#2F4F4F] text-xs rounded-full">
-            5
+            {getCartCount()}
           </span>
         </Link>
         <img

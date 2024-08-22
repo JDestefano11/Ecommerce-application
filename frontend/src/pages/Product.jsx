@@ -10,7 +10,7 @@ const Product = () => {
   // Extract productId from URL parameters
   const { productId } = useParams();
   // Access global shop context for products and currency
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   // State variables for product details and user interactions
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
@@ -108,7 +108,6 @@ const Product = () => {
       if (item._id === productId) {
         setProductData(item);
         setImage(item.image[0]);
-        console.log(item);
         return null;
       }
     });
@@ -190,7 +189,7 @@ const renderStars = (rating) => {
               </div>
             </div>
             {/* Add to cart button */}
-            <button className="bg-[#708090] text-white px-8 py-3 text-sm hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition duration-300">Add to Cart</button>
+            <button onClick={()=>addToCart(productData._id, size)} className="bg-[#708090] text-white px-8 py-3 text-sm hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition duration-300">Add to Cart</button>
             <hr className="mt-8 sm:w-4/5 border-[#708090]" />
             {/* Additional product information */}
             <div className="text-sm text-[#708090] mt-5 flex-col flex gap-1">
