@@ -16,7 +16,7 @@ const SearchBar = () => {
   // Effect to update visibility based on location and search state
   useEffect(() => {
     // Check if the current path includes "collection" and if search should be shown
-    if (location.pathname.includes("collection") && showSearch) {
+    if (location.pathname.includes("collection")) {
       // If both conditions are true, make the search bar visible
       setVisible(true);
     } else {
