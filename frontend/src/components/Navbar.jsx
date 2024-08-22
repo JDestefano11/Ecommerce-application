@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { assets } from "../assets/frontend_assets/assets";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const { setShowSearch } = useContext(ShopContext);
+  const location = useLocation();
 
   // Ref to the mobile menu for detecting clicks outside
   const menuRef = useRef(null);
@@ -66,12 +66,19 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className="flex items-center gap-5">
-        <img
-          src={assets.search_icon}
-          className="w-5 cursor-pointer"
-          alt="search"
-          onClick={() => setShowSearch(true)}
-        />
+        {location.pathname.includes("collection") && (
+          <img
+            src={assets.search_icon}
+            className="w-5 cursor-pointer"
+            alt="search"
+            onClick={() => {
+              console.log("Search icon clicked");
+              console.log("Current path:", window.location.pathname);
+              setShowSearch(true);
+              console.log("showSearch set to true");
+            }}
+          />
+        )}
         <div className="group relative">
           <img
             src={assets.profile_icon}
