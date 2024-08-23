@@ -9,7 +9,10 @@ const ShopContextProvider = (props) => {
   const delivery_fee = 10;
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [cartItems, setCartItems] = useState({});
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem('cartItems');
+    return savedCart ? JSON.parse(savedCart) : {};
+  });
 
   // Add items to cart functionality
   const addToCart = async (itemId, size) => {
@@ -37,26 +40,27 @@ const ShopContextProvider = (props) => {
     });
   };
 
-    // Update cart item quantity
-    const updateCart = (itemId, size, quantity) => {
-      setCartItems(prevCartItems => {
-        const updatedCartItems = { ...prevCartItems };
-        if (updatedCartItems[itemId] && updatedCartItems[itemId][size]) {
-          if (quantity > 0) {
-            // Update quantity if it's greater than 0
-            updatedCartItems[itemId][size] = quantity;
-          } else {
-            // Remove the size if quantity is 0 or less
-            delete updatedCartItems[itemId][size];
-            // Remove the entire item if no sizes remain
-            if (Object.keys(updatedCartItems[itemId]).length === 0) {
-              delete updatedCartItems[itemId];
-            }
+  // Update cart item quantity
+  const updateCart = (itemId, size, quantity) => {
+    setCartItems(prevCartItems => {
+      const updatedCartItems = { ...prevCartItems };
+      if (updatedCartItems[itemId] && updatedCartItems[itemId][size]) {
+        if (quantity > 0) {
+          // Update quantity if it's greater than 0
+          updatedCartItems[itemId][size] = quantity;
+        } else {
+          // Remove the size if quantity is 0 or less
+          delete updatedCartItems[itemId][size];
+          // Remove the entire item if no sizes remain
+          if (Object.keys(updatedCartItems[itemId]).length === 0) {
+            delete updatedCartItems[itemId];
           }
         }
-        return updatedCartItems;
-      });
-    };
+      }
+      return updatedCartItems;
+    });
+  };
+
   // Remove item from cart
   const removeCartItem = (itemId, size) => {
     setCartItems(prevCartItems => {
@@ -72,6 +76,7 @@ const ShopContextProvider = (props) => {
       return updatedCartItems;
     });
   };
+
   // Update cart count on cart icon
   const getCartCount = () => {
     let totalCount = 0;
@@ -84,8 +89,9 @@ const ShopContextProvider = (props) => {
     });
     return totalCount;
   };
+
   useEffect(() => {
-    console.log(cartItems);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
   const value = {
