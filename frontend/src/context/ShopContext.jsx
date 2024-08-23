@@ -37,17 +37,53 @@ const ShopContextProvider = (props) => {
     });
   };
 
+    // Update cart item quantity
+    const updateCart = (itemId, size, quantity) => {
+      setCartItems(prevCartItems => {
+        const updatedCartItems = { ...prevCartItems };
+        if (updatedCartItems[itemId] && updatedCartItems[itemId][size]) {
+          if (quantity > 0) {
+            // Update quantity if it's greater than 0
+            updatedCartItems[itemId][size] = quantity;
+          } else {
+            // Remove the size if quantity is 0 or less
+            delete updatedCartItems[itemId][size];
+            // Remove the entire item if no sizes remain
+            if (Object.keys(updatedCartItems[itemId]).length === 0) {
+              delete updatedCartItems[itemId];
+            }
+          }
+        }
+        return updatedCartItems;
+      });
+    };
+  // Remove item from cart
+  const removeCartItem = (itemId, size) => {
+    setCartItems(prevCartItems => {
+      const updatedCartItems = { ...prevCartItems };
+      if (updatedCartItems[itemId] && updatedCartItems[itemId][size]) {
+        // Remove the specific size from the item
+        delete updatedCartItems[itemId][size];
+        // Remove the entire item if no sizes remain
+        if (Object.keys(updatedCartItems[itemId]).length === 0) {
+          delete updatedCartItems[itemId];
+        }
+      }
+      return updatedCartItems;
+    });
+  };
   // Update cart count on cart icon
   const getCartCount = () => {
     let totalCount = 0;
+    // Iterate through all items in the cart
     Object.values(cartItems).forEach(sizes => {
+      // Sum up quantities for all sizes of each item
       Object.values(sizes).forEach(count => {
         totalCount += count;
       });
     });
     return totalCount;
   };
-
   useEffect(() => {
     console.log(cartItems);
   }, [cartItems]);
@@ -63,6 +99,8 @@ const ShopContextProvider = (props) => {
     cartItems,
     setCartItems,
     addToCart,
+    updateCart,
+    removeCartItem,
     getCartCount
   };
 
