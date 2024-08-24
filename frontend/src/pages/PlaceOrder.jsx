@@ -6,10 +6,19 @@ const PlaceOrder = () => {
   // Access global state from ShopContext
   const { cartItems, products, currency, delivery_fee } = useContext(ShopContext);
 
+  // State for checkout mode
+  const [checkoutMode, setCheckoutMode] = useState("guest");
+
   // State for form data
   const [formData, setFormData] = useState({
     firstName: "", lastName: "", email: "", address: "",
     city: "", state: "", zipCode: "", country: "", phone: ""
+  });
+
+  // State for login data
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: ""
   });
 
   // State for payment method and payment information
@@ -32,6 +41,11 @@ const PlaceOrder = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Handler for login input changes
+  const handleLoginInputChange = (e) => {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
+  };
+
   // Handler for payment information changes
   const handlePaymentInfoChange = (e) => {
     setPaymentInfo({ ...paymentInfo, [e.target.name]: e.target.value });
@@ -52,6 +66,14 @@ const PlaceOrder = () => {
   // Form validation
   const validateForm = () => {
     const newErrors = {};
+    if (checkoutMode === "guest") {
+      if (!formData.firstName) newErrors.firstName = "First name is required";
+      if (!formData.lastName) newErrors.lastName = "Last name is required";
+      if (!formData.email) newErrors.email = "Email is required";
+    } else {
+      if (!loginData.email) newErrors.loginEmail = "Email is required";
+      if (!loginData.password) newErrors.loginPassword = "Password is required";
+    }
     if (paymentMethod === "") newErrors.paymentMethod = "Please select a payment method";
     if (!paymentInfo.cardNumber) newErrors.cardNumber = "Card number is required";
     if (!paymentInfo.expiry) newErrors.expiry = "Expiry date is required";
@@ -64,7 +86,7 @@ const PlaceOrder = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Order submitted", { formData, paymentMethod, paymentInfo, total });
+      console.log("Order submitted", { checkoutMode, formData, loginData, paymentMethod, paymentInfo, total });
       // Proceed with order submission
     }
   };
@@ -73,33 +95,64 @@ const PlaceOrder = () => {
     <div className="flex flex-col sm:flex-row justify-between gap-8 pt-5 sm:pt-14 min-h-[80vh] border-t ">
       <div className="flex flex-col gap-6 w-full sm:w-1/2">
         <h1 className="text-2xl sm:text-3xl font-semibold text-[#2F4F4F]">Checkout Information</h1>
+        
+        {/* Checkout Mode Selection */}
+        <div className="flex gap-4 mb-4">
+          <button
+            onClick={() => setCheckoutMode("guest")}
+            className={`py-2 px-4 rounded-md ${checkoutMode === "guest" ? "bg-[#708090] text-white" : "bg-gray-200"}`}
+          >
+            Checkout as Guest
+          </button>
+          <button
+            onClick={() => setCheckoutMode("login")}
+            className={`py-2 px-4 rounded-md ${checkoutMode === "login" ? "bg-[#708090] text-white" : "bg-gray-200"}`}
+          >
+            Login to Checkout
+          </button>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Personal Information Inputs */}
-          <div className="flex gap-4">
-            <input type="text" name="firstName" placeholder="First name" value={formData.firstName} onChange={handleInputChange}
-              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-            <input type="text" name="lastName" placeholder="Last name" value={formData.lastName} onChange={handleInputChange}
-              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-          </div>
-          <input type="email" name="email" placeholder="Email address" value={formData.email} onChange={handleInputChange}
-            className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-          <input type="text" name="address" placeholder="Address" value={formData.address} onChange={handleInputChange}
-            className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-          <div className="flex gap-4">
-            <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleInputChange}
-              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-            <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleInputChange}
-              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-          </div>
-          <div className="flex gap-4">
-            <input type="text" name="zipCode" placeholder="Zip code" value={formData.zipCode} onChange={handleInputChange}
-              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-            <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleInputChange}
-              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-          </div>
-          <input type="tel" name="phone" placeholder="Phone" value={formData.phone} onChange={handleInputChange}
-            className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
-         
+          {checkoutMode === "guest" ? (
+            <>
+              {/* Guest Checkout Form */}
+              <div className="flex gap-4">
+                <input type="text" name="firstName" placeholder="First name" value={formData.firstName} onChange={handleInputChange}
+                  className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+                <input type="text" name="lastName" placeholder="Last name" value={formData.lastName} onChange={handleInputChange}
+                  className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+              </div>
+              <input type="email" name="email" placeholder="Email address" value={formData.email} onChange={handleInputChange}
+                className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+              <input type="text" name="address" placeholder="Address" value={formData.address} onChange={handleInputChange}
+                className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+              <div className="flex gap-4">
+                <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleInputChange}
+                  className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+                <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleInputChange}
+                  className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+              </div>
+              <div className="flex gap-4">
+                <input type="text" name="zipCode" placeholder="Zip code" value={formData.zipCode} onChange={handleInputChange}
+                  className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+                <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleInputChange}
+                  className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+              </div>
+              <input type="tel" name="phone" placeholder="Phone" value={formData.phone} onChange={handleInputChange}
+                className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+            </>
+          ) : (
+            <>
+              {/* Login Form */}
+              <input type="email" name="email" placeholder="Email address" value={loginData.email} onChange={handleLoginInputChange}
+                className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+              {errors.loginEmail && <p className="text-red-500 text-sm">{errors.loginEmail}</p>}
+              <input type="password" name="password" placeholder="Password" value={loginData.password} onChange={handleLoginInputChange}
+                className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-[#FFC0CB]" />
+              {errors.loginPassword && <p className="text-red-500 text-sm">{errors.loginPassword}</p>}
+            </>
+          )}
+
           {/* Payment Method Selection */}
           <div className="space-y-2">
             <h2 className="text-lg font-semibold text-[#2F4F4F]">Payment Method</h2>
