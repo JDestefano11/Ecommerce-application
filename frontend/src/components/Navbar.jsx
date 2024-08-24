@@ -5,15 +5,22 @@ import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const { setShowSearch, getCartCount } = useContext(ShopContext);
   const location = useLocation();
 
   // Ref to the mobile menu for detecting clicks outside
   const menuRef = useRef(null);
+  const profileDropdownRef = useRef(null);
 
   // Function to toggle the mobile menu open/closed
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Function to toggle the profile dropdown
+  const toggleProfileDropdown = () => {
+    setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
   // Effect to handle clicking outside the mobile menu to close it
@@ -21,6 +28,9 @@ const Navbar = () => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
+      }
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        setIsProfileDropdownOpen(false);
       }
     };
 
@@ -33,7 +43,7 @@ const Navbar = () => {
   }, []); // Empty dependency array means this effect runs once on mount
 
   return (
-    <div className="relative flex items-center justify-between py-5 font-medium bg-[#FFFFFF] w-full">
+    <div className="relative flex items-center justify-between py-5 font-medium bg-[#FFFFFF] w-full z-50">
       <img src={assets.logo} className="w-36" alt="logo" />
       <ul className="hidden sm:flex gap-5 text-sm text-[#708090]">
         <NavLink
@@ -79,19 +89,22 @@ const Navbar = () => {
             }}
           />
         )}
-        <div className="group relative">
+        <div className="relative" ref={profileDropdownRef}>
           <img
             src={assets.profile_icon}
             className="w-5 cursor-pointer"
             alt="profile"
+            onClick={toggleProfileDropdown}
           />
-          <div className="group-hover:block hidden absolute dropdown right-0 mt-2">
-            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#FFFDD0] text-[#2F4F4F] rounded">
-              <p className="cursor-pointer hover:text-[#FFC0CB]">My Profile</p>
-              <p className="cursor-pointer hover:text-[#FFC0CB]">Orders</p>
-              <p className="cursor-pointer hover:text-[#FFC0CB]">Logout</p>
+          {isProfileDropdownOpen && (
+            <div className="absolute dropdown right-0 mt-2">
+              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#FFFDD0] text-[#2F4F4F] rounded shadow-md">
+                <Link to="/profile" className="cursor-pointer hover:text-[#FFC0CB]">My Profile</Link>
+                <Link to="/orders" className="cursor-pointer hover:text-[#FFC0CB]">Orders</Link>
+                <button className="cursor-pointer hover:text-[#FFC0CB] text-left">Logout</button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} alt="cart" className="w-5 min-w-5" />
