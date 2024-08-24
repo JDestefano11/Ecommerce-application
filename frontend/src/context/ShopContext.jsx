@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { products } from "../assets/frontend_assets/assets";
 import { toast } from "react-toastify";
 
@@ -9,6 +10,7 @@ const ShopContextProvider = (props) => {
   const delivery_fee = 10;
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem('cartItems');
     return savedCart ? JSON.parse(savedCart) : {};
@@ -107,7 +109,8 @@ const ShopContextProvider = (props) => {
     addToCart,
     updateCart,
     removeCartItem,
-    getCartCount
+    getCartCount,
+    navigate
   };
 
   return (

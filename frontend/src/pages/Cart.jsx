@@ -4,7 +4,7 @@ import { assets } from "../assets/frontend_assets/assets";
 
 const Cart = () => {
   // Extract necessary functions and data from ShopContext
-  const { products, currency, cartItems, updateCart, removeCartItem, getCartCount, delivery_fee } = useContext(ShopContext);
+  const { products, currency, cartItems, updateCart, removeCartItem, getCartCount, delivery_fee, navigate } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -159,7 +159,10 @@ const Cart = () => {
             </button>
           </form>
 
-          <button className="w-full mt-4 bg-[#708090] text-white py-2 rounded hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition-colors">
+          <button 
+            onClick={() => navigate('/placeorder')}
+            className="w-full mt-4 bg-[#708090] text-white py-2 rounded hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition-colors"
+          >
             Proceed to Checkout
           </button>
         </div>
