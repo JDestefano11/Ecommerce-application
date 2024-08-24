@@ -92,6 +92,14 @@ const ShopContextProvider = (props) => {
     return totalCount;
   };
 
+  // Logout functionality
+  const logout = () => {
+    setCartItems({});
+    localStorage.removeItem('cartItems');
+    toast.success('Logged out successfully');
+    navigate('/');
+  };
+
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
@@ -110,7 +118,8 @@ const ShopContextProvider = (props) => {
     updateCart,
     removeCartItem,
     getCartCount,
-    navigate
+    navigate,
+    logout
   };
 
   return (

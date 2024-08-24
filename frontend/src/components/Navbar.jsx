@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { assets } from "../assets/frontend_assets/assets";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const { setShowSearch, getCartCount } = useContext(ShopContext);
+  const { setShowSearch, getCartCount, logout } = useContext(ShopContext);
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Ref to the mobile menu for detecting clicks outside
   const menuRef = useRef(null);
@@ -41,6 +42,11 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []); // Empty dependency array means this effect runs once on mount
+
+  const handleLogout = () => {
+    logout();
+    setIsProfileDropdownOpen(false);
+  };
 
   return (
     <div className="relative flex items-center justify-between py-5 font-medium bg-[#FFFFFF] w-full z-50">
@@ -101,7 +107,12 @@ const Navbar = () => {
               <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#FFFDD0] text-[#2F4F4F] rounded shadow-md">
                 <Link to="/profile" className="cursor-pointer hover:text-[#FFC0CB]">My Profile</Link>
                 <Link to="/orders" className="cursor-pointer hover:text-[#FFC0CB]">Orders</Link>
-                <button className="cursor-pointer hover:text-[#FFC0CB] text-left">Logout</button>
+                <button
+                  className="cursor-pointer hover:text-[#FFC0CB] text-left"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
               </div>
             </div>
           )}
