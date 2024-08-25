@@ -15,6 +15,7 @@ const ShopContextProvider = (props) => {
     const savedCart = localStorage.getItem('cartItems');
     return savedCart ? JSON.parse(savedCart) : {};
   });
+  const [user, setUser] = useState(null);
 
   // Add items to cart functionality
   const addToCart = async (itemId, size) => {
@@ -22,16 +23,15 @@ const ShopContextProvider = (props) => {
       toast.error('Select Product Size');
       return;
     }
-
     setCartItems(prevCartItems => {
       const updatedCartItems = { ...prevCartItems };
       if (updatedCartItems[itemId]) {
-        // Check if the item already exists in the cart
+          // Check if the item already exists in the cart
         if (updatedCartItems[itemId][size]) {
-          // If the specific size of the item exists, increase the quantity by 1
+            // If the specific size of the item exists, increase the quantity by 1
           updatedCartItems[itemId][size] += 1;
         } else {
-          // If the size doesn't exist, initialize the quantity for that size to 1
+            // If the size doesn't exist, initialize the quantity for that size to 1
           updatedCartItems[itemId][size] = 1;
         }
       } else {
@@ -48,12 +48,12 @@ const ShopContextProvider = (props) => {
       const updatedCartItems = { ...prevCartItems };
       if (updatedCartItems[itemId] && updatedCartItems[itemId][size]) {
         if (quantity > 0) {
-          // Update quantity if it's greater than 0
+             // Update quantity if it's greater than 0
           updatedCartItems[itemId][size] = quantity;
         } else {
-          // Remove the size if quantity is 0 or less
+            // Remove the size if quantity is 0 or less
           delete updatedCartItems[itemId][size];
-          // Remove the entire item if no sizes remain
+           // Remove the entire item if no sizes remain
           if (Object.keys(updatedCartItems[itemId]).length === 0) {
             delete updatedCartItems[itemId];
           }
@@ -68,9 +68,9 @@ const ShopContextProvider = (props) => {
     setCartItems(prevCartItems => {
       const updatedCartItems = { ...prevCartItems };
       if (updatedCartItems[itemId] && updatedCartItems[itemId][size]) {
-        // Remove the specific size from the item
+           // Remove the specific size from the item
         delete updatedCartItems[itemId][size];
-        // Remove the entire item if no sizes remain
+           // Remove the entire item if no sizes remain
         if (Object.keys(updatedCartItems[itemId]).length === 0) {
           delete updatedCartItems[itemId];
         }
@@ -82,9 +82,9 @@ const ShopContextProvider = (props) => {
   // Update cart count on cart icon
   const getCartCount = () => {
     let totalCount = 0;
-    // Iterate through all items in the cart
+       // Iterate through all items in the cart
     Object.values(cartItems).forEach(sizes => {
-      // Sum up quantities for all sizes of each item
+            // Sum up quantities for all sizes of each item
       Object.values(sizes).forEach(count => {
         totalCount += count;
       });
@@ -92,8 +92,23 @@ const ShopContextProvider = (props) => {
     return totalCount;
   };
 
+  // Login functionality
+  const login = (email, password) => {
+    setUser({ email, name: "John Doe" });
+    toast.success('Logged in successfully');
+    navigate('/');
+  };
+
+  // Signup functionality
+  const signup = (name, email, password) => {
+    setUser({ email, name });
+    toast.success('Signed up successfully');
+    navigate('/');
+  };
+
   // Logout functionality
   const logout = () => {
+    setUser(null);
     setCartItems({});
     localStorage.removeItem('cartItems');
     toast.success('Logged out successfully');
@@ -119,6 +134,9 @@ const ShopContextProvider = (props) => {
     removeCartItem,
     getCartCount,
     navigate,
+    user,
+    login,
+    signup,
     logout
   };
 

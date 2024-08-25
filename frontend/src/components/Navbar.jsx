@@ -6,10 +6,11 @@ import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const { setShowSearch, getCartCount, logout } = useContext(ShopContext);
+  const { setShowSearch, getCartCount, logout, user } = useContext(ShopContext);
   const location = useLocation();
   const navigate = useNavigate();
 
+  
   // Ref to the mobile menu for detecting clicks outside
   const menuRef = useRef(null);
   const profileDropdownRef = useRef(null);
@@ -19,7 +20,7 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Function to toggle the profile dropdown
+    // Function to toggle the profile dropdown
   const toggleProfileDropdown = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
@@ -35,7 +36,7 @@ const Navbar = () => {
       }
     };
 
-    // Add event listener when component mounts
+        // Add event listener when component mounts
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
@@ -43,40 +44,30 @@ const Navbar = () => {
     };
   }, []); // Empty dependency array means this effect runs once on mount
 
+  // Function to handle logout
   const handleLogout = () => {
     logout();
     setIsProfileDropdownOpen(false);
+    navigate('/');
   };
 
   return (
     <div className="relative flex items-center justify-between py-5 font-medium bg-[#FFFFFF] w-full z-50">
       <img src={assets.logo} className="w-36" alt="logo" />
       <ul className="hidden sm:flex gap-5 text-sm text-[#708090]">
-        <NavLink
-          to="/"
-          className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300"
-        >
+        <NavLink to="/" className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300">
           <p>Home</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
-        <NavLink
-          to="/collection"
-          className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300"
-        >
+        <NavLink to="/collection" className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300">
           <p>Collection</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
-        <NavLink
-          to="/about"
-          className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300"
-        >
+        <NavLink to="/about" className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300">
           <p>About</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
-        <NavLink
-          to="/contact"
-          className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300"
-        >
+        <NavLink to="/contact" className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300">
           <p>Contact</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
@@ -102,7 +93,7 @@ const Navbar = () => {
             alt="profile"
             onClick={toggleProfileDropdown}
           />
-          {isProfileDropdownOpen && (
+          {isProfileDropdownOpen && user && (
             <div className="absolute dropdown right-0 mt-2">
               <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#FFFDD0] text-[#2F4F4F] rounded shadow-md">
                 <Link to="/profile" className="cursor-pointer hover:text-[#FFC0CB]">My Profile</Link>
@@ -113,6 +104,13 @@ const Navbar = () => {
                 >
                   Logout
                 </button>
+              </div>
+            </div>
+          )}
+          {isProfileDropdownOpen && !user && (
+            <div className="absolute dropdown right-0 mt-2">
+              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-[#FFFDD0] text-[#2F4F4F] rounded shadow-md">
+                <Link to="/login" className="cursor-pointer hover:text-[#FFC0CB]">Login</Link>
               </div>
             </div>
           )}
