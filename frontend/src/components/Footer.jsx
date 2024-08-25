@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { assets } from "../../src/assets/frontend_assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const footerLinks = [
     { title: "Home", path: "/" },
@@ -22,7 +27,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className=" text-[#2F4F4F] py-16">
+    <footer className="text-[#2F4F4F] py-16">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Logo and Description */}
