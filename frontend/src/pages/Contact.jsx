@@ -24,17 +24,16 @@ const Contact = () => {
       pauseOnHover: true,
       draggable: true,
     });
-    // Reset form after submission
     setFormData({ name: '', email: '', message: '' });
   };
 
   return (
     <div className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold text-center mb-12 text-[#2F4F4F]">Contact Us</h1>
-      
+     
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="bg-[#FFFDD0] p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-6 text-[#2F4F4F]">Get in Touch</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-[#2F4F4F] text-center">Get in Touch</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="name" className="block text-[#708090] mb-2">Name</label>
@@ -72,16 +71,18 @@ const Contact = () => {
                 required
               ></textarea>
             </div>
-            <button
-              type="submit"
-              className="bg-[#708090] text-white px-6 py-2 rounded-md hover:bg-[#2F4F4F] transition-colors duration-300"
-            >
-              Send Message
-            </button>
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-[#708090] text-white px-6 py-2 rounded-md hover:bg-[#2F4F4F] transition-colors duration-300"
+              >
+                Send Message
+              </button>
+            </div>
           </form>
         </div>
-        
-        <div className="bg-[#FFFDD0] p-8 rounded-lg shadow-md">
+       
+        <div className="bg-[#FFFDD0] p-8 rounded-lg shadow-md flex flex-col items-center">
           <h2 className="text-2xl font-semibold mb-6 text-[#2F4F4F]">Contact Information</h2>
           <div className="space-y-4">
             <div className="flex items-center space-x-4">
@@ -97,7 +98,7 @@ const Contact = () => {
               <span className="text-[#708090]">123 Fashion St, Style City, 12345</span>
             </div>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 text-center">
             <h3 className="text-xl font-semibold mb-4 text-[#2F4F4F]">Business Hours</h3>
             <ul className="space-y-2 text-[#708090]">
               <li>Monday - Friday: 9:00 AM - 6:00 PM</li>
