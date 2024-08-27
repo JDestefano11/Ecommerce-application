@@ -52,27 +52,29 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative flex items-center justify-between py-5 font-medium bg-[#FFFFFF] w-full z-50">
-      <img src={assets.logo} className="w-36" alt="logo" />
-      <ul className="hidden sm:flex gap-5 text-sm text-[#708090]">
-        <NavLink to="/" className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300">
-          <p>Home</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
-        </NavLink>
-        <NavLink to="/collection" className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300">
-          <p>Collection</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
-        </NavLink>
-        <NavLink to="/about" className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300">
-          <p>About</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
-        </NavLink>
-        <NavLink to="/contact" className="flex flex-col items-center gap-1 hover:text-[#FFC0CB] transition-colors duration-300">
-          <p>Contact</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
-        </NavLink>
-      </ul>
-      <div className="flex items-center gap-5">
+    <div className="relative flex items-center justify-between h-20 px-4 font-medium bg-[#FFFFFF] w-full z-50">
+    <div className="flex items-center">
+      <img src={assets.TrendHive_logo} className="w-60 h-auto" alt="logo" />
+    </div>
+    <ul className="hidden sm:flex gap-5 text-sm text-[#708090]">
+    <NavLink to="/" className="flex flex-col items-center justify-center h-full hover:text-[#FFC0CB] transition-colors duration-300">
+      <p>Home</p>
+      <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
+    </NavLink>
+    <NavLink to="/collection" className="flex flex-col items-center justify-center h-full hover:text-[#FFC0CB] transition-colors duration-300">
+      <p>Collection</p>
+      <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
+    </NavLink>
+    <NavLink to="/about" className="flex flex-col items-center justify-center h-full hover:text-[#FFC0CB] transition-colors duration-300">
+      <p>About</p>
+      <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
+    </NavLink>
+    <NavLink to="/contact" className="flex flex-col items-center justify-center h-full hover:text-[#FFC0CB] transition-colors duration-300">
+      <p>Contact</p>
+      <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
+    </NavLink>
+  </ul>
+  <div className="flex items-center gap-4">
         {location.pathname.includes("collection") && (
           <img
             src={assets.search_icon}
