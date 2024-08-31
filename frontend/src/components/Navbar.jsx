@@ -39,7 +39,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-20 bg-white flex items-center justify-between font-medium z-50 px-4 sm:px-8 lg:px-12">
+    <div className="fixed top-0 left-0 w-full h-20 bg-white flex items-center justify-between font-medium z-50 px-4 sm:px-8 lg:px-12 mt-15">
       <div className="flex items-center">
         <img src={assets.TrendHive_logo} className="w-60 h-auto" alt="logo" />
       </div>
