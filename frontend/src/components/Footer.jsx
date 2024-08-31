@@ -12,7 +12,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bottom-0 bg-[#F8F8F8] text-[#2F4F4F] w-full">
+    <footer className="bottom-0 bg-[#F8F8F8] text-[#2F4F4F] w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
       {/* First row of the footer */}
       <div className="w-full py-10 px-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* About Us Section */}
