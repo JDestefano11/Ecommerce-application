@@ -40,7 +40,7 @@ const Collection = () => {
 
     if (showSearch && search) {
       // If search is active, filter products based on search query
-      productsCopy = productsCopy.filter(item =>
+      productsCopy = productsCopy.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase())
       );
     }
@@ -96,7 +96,7 @@ const Collection = () => {
   }, [category, subCategory, search, showSearch]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
+    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t mt-40">
       {/*Filter Options */}
       <div className="min-w-60">
         <p

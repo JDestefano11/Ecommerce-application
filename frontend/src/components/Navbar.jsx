@@ -73,7 +73,7 @@ const Navbar = () => {
           <hr className="w-2/4 border-none h-[1.5px] bg-[#708090] hidden" />
         </NavLink>
       </ul>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         {" "}
         {/* Increased gap */}
         {location.pathname.includes("collection") && (
@@ -86,7 +86,7 @@ const Navbar = () => {
             }}
           />
         )}
-        <div className="relative" ref={profileDropdownRef}>
+        <div className="relative gap-3" ref={profileDropdownRef}>
           <img
             src={assets.profile_icon}
             className="w-5 cursor-pointer"
@@ -131,7 +131,7 @@ const Navbar = () => {
           )}
         </div>
         <Link to="/cart" className="relative">
-          <img src={assets.cart_icon} alt="cart" className="w-5 ml-1" />{" "}
+          <img src={assets.cart_icon} alt="cart" className="w-5 ml-1 gpa-3" />{" "}
           {/* Added margin */}
           <span className="absolute top-[-10px] right-[-10px] w-5 h-5 text-center leading-5 bg-[#FFC0CB] text-[#2F4F4F] text-xs rounded-full">
             {getCartCount()}

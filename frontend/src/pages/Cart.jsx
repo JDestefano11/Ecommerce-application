@@ -4,7 +4,16 @@ import { assets } from "../assets/frontend_assets/assets";
 
 const Cart = () => {
   // Extract necessary functions and data from ShopContext
-  const { products, currency, cartItems, updateCart, removeCartItem, getCartCount, delivery_fee, navigate } = useContext(ShopContext);
+  const {
+    products,
+    currency,
+    cartItems,
+    updateCart,
+    removeCartItem,
+    getCartCount,
+    delivery_fee,
+    navigate,
+  } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
@@ -40,12 +49,14 @@ const Cart = () => {
   // Calculate subtotal price of items in cart
   const calculateSubtotal = () => {
     // Use reduce to sum up the total price of all items
-    return cartData.reduce((total, item) => {
-      // Find the product data for the current item
-      const productData = products.find((p) => p._id === item._id);
-      // Add the price of the current item multiplied by its quantity to the total
-      return total + productData.price * item.quantity;
-    }, 0).toFixed(2); // Fix to 2 decimal places for currency display
+    return cartData
+      .reduce((total, item) => {
+        // Find the product data for the current item
+        const productData = products.find((p) => p._id === item._id);
+        // Add the price of the current item multiplied by its quantity to the total
+        return total + productData.price * item.quantity;
+      }, 0)
+      .toFixed(2); // Fix to 2 decimal places for currency display
   };
 
   // Handle coupon code submission
@@ -70,7 +81,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="border-t pt-14">
+    <div className="border-t pt-14 mt-20">
       {/* Cart header */}
       <div className="text-2xl mb-3 text-[#2F4F4F]">
         <h1>Your Cart ({getCartCount()} items)</h1>
@@ -79,7 +90,10 @@ const Cart = () => {
       {/* Sale Section */}
       <div className="bg-[#FFC0CB] text-[#2F4F4F] p-4 mb-6 rounded-md">
         <h2 className="text-xl font-bold mb-2">🎉 Special Offer!</h2>
-        <p>Get 20% off on all items when you spend over $300. Use code: SALE20 at checkout.</p>
+        <p>
+          Get 20% off on all items when you spend over $300. Use code: SALE20 at
+          checkout.
+        </p>
       </div>
 
       {/* Cart items list */}
@@ -87,15 +101,29 @@ const Cart = () => {
         {cartData.map((item, index) => {
           const productData = products.find((p) => p._id === item._id);
           return (
-            <div key={index} className="py-4 border-t text-[#708090] grid grid-cols-[4fr_2fr_0.5fr] items-center gap-4">
+            <div
+              key={index}
+              className="py-4 border-t text-[#708090] grid grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
+            >
               {/* Product image and details */}
               <div className="flex items-start gap-6">
-                <img className="w-16 sm:w-20" src={productData.image[0]} alt="" />
+                <img
+                  className="w-16 sm:w-20"
+                  src={productData.image[0]}
+                  alt=""
+                />
                 <div>
-                  <p className="text-xs sm:text-lg font-medium">{productData.name}</p>
+                  <p className="text-xs sm:text-lg font-medium">
+                    {productData.name}
+                  </p>
                   <div className="flex items-center gap-5 mt-2">
-                    <p className="text-[#708090]">{currency}{productData.price}</p>
-                    <p className="px-2 sm:px-3 sm:py-1 border bg-[#FFFDD0] text-[#2F4F4F]">{item.size}</p>
+                    <p className="text-[#708090]">
+                      {currency}
+                      {productData.price}
+                    </p>
+                    <p className="px-2 sm:px-3 sm:py-1 border bg-[#FFFDD0] text-[#2F4F4F]">
+                      {item.size}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -106,7 +134,9 @@ const Cart = () => {
                 type="number"
                 min={1}
                 value={item.quantity}
-                onChange={(e) => handleQuantityChange(item._id, item.size, e.target.value)}
+                onChange={(e) =>
+                  handleQuantityChange(item._id, item.size, e.target.value)
+                }
               />
 
               {/* Remove item button */}
@@ -126,21 +156,33 @@ const Cart = () => {
         <div className="mt-8 border-t pt-4">
           <div className="flex justify-between items-center text-[#2F4F4F] mb-2">
             <span className="text-lg">Subtotal:</span>
-            <span className="text-lg">{currency}{calculateSubtotal()}</span>
+            <span className="text-lg">
+              {currency}
+              {calculateSubtotal()}
+            </span>
           </div>
           <div className="flex justify-between items-center text-[#2F4F4F] mb-2">
             <span className="text-lg">Shipping:</span>
-            <span className="text-lg">{currency}{delivery_fee.toFixed(2)}</span>
+            <span className="text-lg">
+              {currency}
+              {delivery_fee.toFixed(2)}
+            </span>
           </div>
           {discount > 0 && (
             <div className="flex justify-between items-center text-[#2F4F4F] mb-2">
               <span className="text-lg">Discount:</span>
-              <span className="text-lg">-{currency}{discount.toFixed(2)}</span>
+              <span className="text-lg">
+                -{currency}
+                {discount.toFixed(2)}
+              </span>
             </div>
           )}
           <div className="flex justify-between items-center text-[#2F4F4F] font-semibold">
             <span className="text-xl">Total:</span>
-            <span className="text-xl">{currency}{calculateTotal()}</span>
+            <span className="text-xl">
+              {currency}
+              {calculateTotal()}
+            </span>
           </div>
 
           <form onSubmit={handleCouponSubmit} className="mt-4 mb-4 flex">
@@ -159,8 +201,8 @@ const Cart = () => {
             </button>
           </form>
 
-          <button 
-            onClick={() => navigate('/placeorder')}
+          <button
+            onClick={() => navigate("/placeorder")}
             className="w-full mt-4 bg-[#708090] text-white py-2 rounded hover:bg-[#FFC0CB] hover:text-[#2F4F4F] transition-colors"
           >
             Proceed to Checkout
